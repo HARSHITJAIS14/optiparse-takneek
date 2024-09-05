@@ -1,0 +1,58 @@
+These are the fields we are extracting from any financial documents using the LLM:
+merchant_name
+merchant_id
+ merchant_address
+ merchant_phone
+ merchant_email
+ merchant_fax
+ invoice_number
+ gst_number
+ identification_number
+ total_gst_percentage
+ transaction_date
+ transaction_month
+ transaction_year
+ transaction_time
+ document_class
+ item_type
+ total_amount
+ cashier_name
+ customer_id
+ customer_name
+ item_count
+ 
+ 
+ Here is the example of the json file which is provided as output by the llm :
+ 
+ [
+    [
+        null,
+        null,
+        {
+            "Merchant Name": "WESTERN EASTERN STATIONERY SDN.BHD",
+            "Merchant ID/ code": "COREGNO21003B-K",
+            "Address of merchant": "2 SHAH ALAM 51200 KUALA LUMPUR",
+            "Phone number of merchant": "03-40437678",
+            "email id of merchant": "Not found",
+            "FAX of merchant": "Not found",
+            "Invoice/Bill/Receipt number": "KL001",
+            "GST Number": "000510964",
+            "Identification Number like TIN CIN etc": "Not found",
+            "total GST percentage": "6%",
+            "Date of Transaction": "30-04-2018",
+            "Month of Transaction": "April",
+            "Year of Transaction": "2018",
+            "Time of Transaction": "815:5",
+            "Class of financial document": "Tax Invoice",
+            "Type of item purchased": "B/W P.SA4/A3",
+            "Total amount": "1.38",
+            "Cashier name": "Not found",
+            "Customer ID": "Not found",
+            "Customer name": "Not found",
+            "Number of items": "1"
+        },
+        null,
+        null,
+        null
+    ]
+     ]
