@@ -16,10 +16,13 @@ import ocr
 import llm
 import os
 import shutil
+import db_setup
 
 
 
 app = FastAPI()
+
+db_setup.create_db()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -112,7 +115,7 @@ async def logout(token: Annotated[str, Depends(oauth2_scheme)]):
     return {"message": "Logged out"}
 
 @app.post("/update_details")
-async def update_details(token: Annotated[str, Depends(oauth2_scheme)], account_number: str, email: str, phone_number: str ="", pan_number: str ="", aadhar_number: str =""):
+async def update_details(token: Annotated[str, Depends(oauth2_scheme)], account_number: str, email: str, phone_number: str = "", pan_number: str = "", aadhar_number: str = ""):
     user = decode_token(token)
     if type(user) == str:
         raise HTTPException(

@@ -4,7 +4,15 @@ import constants
 import argparse
 
 def create_db():
-    pass
+    filepath = constants.AUTH_DATABASE_FILENAME
+    if(os.path.exists(filepath)):
+        os.remove(filepath)
+    
+    conn = sqlite3.connect(filepath)
+
+    c = conn.cursor()
+    c.execute(constants.AUTH_TABLE_SCHEMA)
+    c.close()
 
 
 if __name__ == "__main__":
