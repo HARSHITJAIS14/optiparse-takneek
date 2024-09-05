@@ -3,6 +3,7 @@ from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import SystemMessage, UserMessage
 from azure.core.credentials import AzureKeyCredential
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -46,6 +47,7 @@ Below is the data extracted from the image:
 ```
 {txt}
 ```
+Give me only the json data as a string which I can use to parse json, no backticks or anything.
 """
 
     response = client.complete(
@@ -58,5 +60,5 @@ Below is the data extracted from the image:
         max_tokens=1000,
         top_p=1.
     )
-
-    return response.choices[0].message.content
+    print(response.choices[0].message.content)
+    return json.loads(response.choices[0].message.content)

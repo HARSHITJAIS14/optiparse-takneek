@@ -1,6 +1,12 @@
-FROM python:3.12-slim
-WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+FROM python:3
+RUN apt-get update
+# RUN apt-get -y install tesseract-ocr libtesseract-dev
+WORKDIR /app
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 COPY . .
-CMD [ "python", "./main.py" ]
+RUN python3 db_setup.py
+EXPOSE 8060/tcp
+EXPOSE 8060/udp
+ENTRYPOINT [ "fastapi","run","main.py","--port","8060"]
+# ENTRYPOINT [ "fastapi","dev" ]
