@@ -11,6 +11,7 @@ google-generativeai
 pandas
 matplotlib
 pillow-avif-plugin
+azure-ai-inference
 paddlepaddle
 setuptools
 paddleocr>=2.0.1

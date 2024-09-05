@@ -14,15 +14,16 @@ import constants
 # import paddle_script
 import ocr
 import llm
+import llm_2
 import os
 import shutil
 import db_setup
 
 
-
+db_setup.create_db()
 app = FastAPI()
 
-db_setup.create_db()
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -156,11 +157,46 @@ async def query_alt(token: Annotated[str, Depends(oauth2_scheme)] ,file: UploadF
         shutil.copyfileobj(file.file, buffer)
     print(file.filename)
     # return paddle_script.func(file_location)
-    json_obj = llm.parsedData(ocr.img_to_txt(file_location))
+    json_obj = llm_2.parsedData(ocr.img_to_txt(file_location))
     credentials.insert_transaction_data_from_model(user.table_name, constants.json_obj_to_user(json_obj))
     if os.path.exists(file_location):
         os.remove(file_location)
     return json_obj
+
+# @app.post("/query")
+# async def query_alt(token: Annotated[str, Depends(oauth2_scheme)] ,file: UploadFile | None = None):
+#     user = decode_token(token)
+#     if type(user) == str:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail=user,
+#             headers={"WWW-Authenticate": "Bearer"},
+#         )
+#     if file == None:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="No file sent",
+#         )
+#     # if file.content_type != "image/jpeg":
+#     #     raise HTTPException(
+#     #         status_code=status.HTTP_400_BAD_REQUEST,
+#     #         detail="Only jpeg files are supported",
+#     #     )
+#     file_location = f"files/{file.filename}"  # Define the path where you want to save the file
+
+#     # Ensure the directory exists
+#     os.makedirs(os.path.dirname(file_location), exist_ok=True)
+
+#     # Save the uploaded file to disk
+#     with open(file_location, "wb") as buffer:
+#         shutil.copyfileobj(file.file, buffer)
+#     print(file.filename)
+#     # return paddle_script.func(file_location)
+#     json_obj = llm.parsedData(ocr.img_to_txt(file_location))
+#     credentials.insert_transaction_data_from_model(user.table_name, constants.json_obj_to_user(json_obj))
+#     if os.path.exists(file_location):
+#         os.remove(file_location)
+#     return json_obj
     # return llm.parsedData(ocr.img_to_txt(file_location))
     # return query_processing.process_image(file.file)
 
