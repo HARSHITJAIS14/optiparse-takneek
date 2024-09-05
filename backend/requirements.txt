@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+pillow-avif-plugin
+Pillow
+paddlepaddle
+setuptools
+paddleocr>=2.0.1
+azure-ai-inference
+python-dotenv

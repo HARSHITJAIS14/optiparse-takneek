@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README to HTML</title>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script> <!-- Import Showdown -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        // Fetch the README.md file from the GitHub repository
+        fetch('https://sayymeer.github.io/optiparse-takneek/README.md')  // Replace with your GitHub username and repo
+        .then(response => response.text())  // Get the content as text
+        .then(markdown => {
+            // Convert Markdown to HTML using Showdown
+            const converter = new showdown.Converter();
+            const html = converter.makeHtml(markdown);
+
+            // Insert the HTML into the content div
+            document.getElementById('content').innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error fetching the README.md file:", error);
+        });
+    </script>
+</body>
+</html>
